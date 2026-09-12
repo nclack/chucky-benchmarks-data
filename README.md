@@ -24,6 +24,9 @@ The built-in `web` remote retrieves the files from their recorded release
 URLs. Public downloads require no GitHub account. Pass an individual file
 path to `git annex get` to download only that file.
 
+An `origin not usable by git-annex` message during initialization is expected
+for GitHub; the `web` remote supplies the content.
+
 ## Direct downloads
 
 The [microscopy-v1 release](https://github.com/nclack/chucky-benchmarks-data/releases/tag/microscopy-v1)
