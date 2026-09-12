@@ -1,0 +1,4 @@
+* text=auto eol=lf annex.largefiles=nothing
+data/** annex.largefiles=anything annex.backend=SHA256
+*.raw -text -diff -merge
+thumbnails/** binary annex.largefiles=nothing

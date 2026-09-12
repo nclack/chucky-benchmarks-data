@@ -1,0 +1,438 @@
+{
+  "format": {
+    "name": "chucky-image-corpus",
+    "version": 2,
+    "encoding": "raw",
+    "byte_order": "little",
+    "axes": [
+      "plane",
+      "y",
+      "x"
+    ],
+    "order": "C"
+  },
+  "id": "microscopy-core",
+  "version": 1,
+  "name": "Microscopy compression benchmark examples",
+  "datasets": [
+    {
+      "id": "opencell-fluorescence-core",
+      "version": 1,
+      "name": "OpenCell fluorescence benchmark subset",
+      "modality": "fluorescence",
+      "source": {
+        "collection": "OpenCell",
+        "url": "https://registry.opendata.aws/czb-opencell/",
+        "attribution": "OpenCell team, Chan Zuckerberg Biohub; Nathan H. Cho and colleagues, OpenCell: proteome-scale endogenous tagging enables the cartography of human cellular organization, Science 375, eabi6983 (2022), https://doi.org/10.1126/science.abi6983",
+        "license": "CC-BY-SA-4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "changes": "Selected Z/channel planes from OpenCell stacks and repacked them as headerless little-endian uint16 plane stacks without rescaling."
+      },
+      "assets": [
+        {
+          "id": "opencell-dna",
+          "name": "OpenCell DNA",
+          "path": "data/opencell-v1/fluorescence-core-00-600x600.raw",
+          "shape": [
+            6,
+            600,
+            600
+          ],
+          "sha256": "8b9c2466422678b7b32a0617e504d7d59a6ef7898448cbd938b811c415df0d14",
+          "dtype": "uint16",
+          "thumbnail": "thumbnails/opencell-core1.png"
+        },
+        {
+          "id": "opencell-protein",
+          "name": "OpenCell Protein",
+          "path": "data/opencell-v1/fluorescence-core-01-600x600.raw",
+          "shape": [
+            6,
+            600,
+            600
+          ],
+          "sha256": "cc711313f4f5758d252af98a03bf5ef9b6120bac7e0fb3bfc053e8d3687e4046",
+          "dtype": "uint16",
+          "thumbnail": "thumbnails/opencell-core2.png"
+        }
+      ]
+    },
+    {
+      "id": "bbbc010-brightfield",
+      "version": 1,
+      "name": "BBBC010 C. elegans brightfield example",
+      "modality": "brightfield",
+      "source": {
+        "collection": "Broad Bioimage Benchmark Collection: BBBC010",
+        "url": "https://bbbc.broadinstitute.org/BBBC010",
+        "attribution": "Fred Ausubel's laboratory, Massachusetts General Hospital; Broad Bioimage Benchmark Collection, Ljosa and colleagues, Nature Methods (2012).",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "accessed": "2026-09-11",
+        "changes": "Selected well C05 brightfield TIFF from the version 2 image archive and repacked the complete decoded image as little-endian uint16 without rescaling."
+      },
+      "assets": [
+        {
+          "id": "bbbc010-brightfield",
+          "name": "BBBC010 C. elegans brightfield",
+          "path": "data/bbbc010-v1/bbbc010-brightfield.raw",
+          "dtype": "uint16",
+          "shape": [
+            1,
+            520,
+            696
+          ],
+          "sha256": "98f9957085aca90efdcb07c37ee421ac0b2b458074ff21883b0cfca2fe148f71",
+          "thumbnail": "thumbnails/bbbc010-brightfield.png",
+          "selection": {
+            "page": 0,
+            "channel": "brightfield",
+            "well": "C05"
+          },
+          "preview": {
+            "plane": 0,
+            "percentiles": [
+              1,
+              99.5
+            ],
+            "intensity_range": [
+              86.0,
+              125.0
+            ],
+            "resize": "area average, preserve aspect ratio, center on black 128x128 canvas"
+          },
+          "provenance": {
+            "archive_bytes": 68389595,
+            "archive_etag": "\"4138adb-5860a121f1e96\"",
+            "download_bytes": 258980,
+            "files": [
+              {
+                "url": "https://data.broadinstitute.org/bbbc/BBBC010/BBBC010_v2_images.zip",
+                "bytes": 726060,
+                "sha256": "1412510c68133fe2aa41d6d498e08d30d30dabc2144539d6e0557d5389e4f28c",
+                "member": "1649_1109_0003_Amp5-1_B_20070424_C05_w1_F5EEE7FF-DA3E-4BE0-B028-D8CF92A3F35E.tif"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "jump-scope-fluorescence",
+      "version": 1,
+      "name": "Cell Painting JUMP-Scope fluorescence example",
+      "modality": "fluorescence",
+      "source": {
+        "collection": "Cell Painting Gallery: cpg0002-jump-scope",
+        "url": "https://broadinstitute.github.io/cellpainting-gallery/complete_datasets.html",
+        "attribution": "JUMP Cell Painting Consortium and Broad Institute; Callum Tromans-Coia, Nasim Jamali and colleagues, Assessing the performance of the Cell Painting assay across different imaging systems, Cytometry Part A (2023), https://doi.org/10.1002/cyto.a.24786. Cell Painting Gallery: Weisbart and colleagues, Nature Methods (2024). Hosted by the AWS Open Data Sponsorship Program.",
+        "license": "CC0-1.0",
+        "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "license_evidence": "https://github.com/broadinstitute/cellpainting-gallery/blob/main/LICENSE",
+        "accessed": "2026-09-11",
+        "changes": "Selected one full Yokogawa CQ1 image plane from the published TIFFs and repacked it as little-endian uint16 without rescaling. The acquisition metadata records flat-field and geometric calibration."
+      },
+      "assets": [
+        {
+          "id": "jump-scope-fluorescence",
+          "name": "Cell Painting JUMP-Scope 640 nm fluorescence",
+          "path": "data/jump-scope-v1/jump-scope-fluorescence.raw",
+          "dtype": "uint16",
+          "shape": [
+            1,
+            2000,
+            2000
+          ],
+          "sha256": "68c0bbe90a5c54a24f1b2f0eb320ac7ee78048267eebc09ca8add8309e083982",
+          "thumbnail": "thumbnails/jump-scope-fluorescence.png",
+          "selection": {
+            "page": 0,
+            "channel": 5,
+            "excitation_nm": 640,
+            "well": 1,
+            "field": 1,
+            "time": 1,
+            "z": 6,
+            "indexing": "one-based acquisition labels"
+          },
+          "preview": {
+            "plane": 0,
+            "percentiles": [
+              1,
+              99.5
+            ],
+            "intensity_range": [
+              568.0,
+              3635.0
+            ],
+            "resize": "area average, preserve aspect ratio, center on black 128x128 canvas"
+          },
+          "provenance": {
+            "files": [
+              {
+                "url": "https://cellpainting-gallery.s3.amazonaws.com/cpg0002-jump-scope/source_4/images/2020_10_27_Scope1_YokogawaJapan/images/20201020T134356_/Image/W0001F0001T0001Z006C5.tif",
+                "bytes": 8000256,
+                "sha256": "1b3dd96e2e3cdca6db27354b331cd5b93af43a0de0a07f4460a37347fc230d37",
+                "etag": "\"77b216da9b92c7fd3a6b6bf60f466744\""
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "dynacell-a549-phase",
+      "version": 1,
+      "name": "DynaCell A549 reconstructed phase example",
+      "modality": "quantitative-phase",
+      "source": {
+        "collection": "DynaCell A549 v1 demonstration bundle",
+        "url": "https://registry.opendata.aws/dynacell/",
+        "attribution": "Alexandr A. Kalinin and colleagues, DynaCell team, Computational Imaging Group at Biohub, led by Shalin B. Mehta.",
+        "license": "CC-BY-4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "license_evidence": "https://dynacell.s3.us-west-2.amazonaws.com/v1/README.md",
+        "accessed": "2026-09-11",
+        "changes": "Selected one full reconstructed Phase3D plane from the mock A549 condition, field fov0006, time index 0, Z index 24, and repacked the released float32 values without rescaling. No prediction or segmentation channels are included."
+      },
+      "assets": [
+        {
+          "id": "dynacell-a549-phase",
+          "name": "DynaCell A549 reconstructed phase",
+          "path": "data/dynacell-v1/dynacell-a549-phase.raw",
+          "dtype": "float32",
+          "shape": [
+            1,
+            512,
+            512
+          ],
+          "sha256": "920cadc14fb62b66fa23671f25c599904db55815e24e19705b6dc01fdfea1f79",
+          "thumbnail": "thumbnails/dynacell-a549-phase.png",
+          "selection": {
+            "axes": [
+              "t",
+              "c",
+              "z",
+              "y",
+              "x"
+            ],
+            "start": [
+              0,
+              0,
+              24,
+              0,
+              0
+            ],
+            "stop": [
+              1,
+              1,
+              25,
+              512,
+              512
+            ],
+            "channel": "Phase3D",
+            "condition": "mock"
+          },
+          "preview": {
+            "plane": 0,
+            "percentiles": [
+              1,
+              99.5
+            ],
+            "intensity_range": [
+              -0.2010292273759842,
+              0.2662941731512547
+            ],
+            "resize": "area average, preserve aspect ratio, center on black 128x128 canvas"
+          },
+          "provenance": {
+            "archive_bytes": 780409599,
+            "archive_etag": "\"9f3b2068c0bbe2f0f16af349bbf72826-2\"",
+            "download_bytes": 44394093,
+            "files": [
+              {
+                "url": "https://dynacell.s3.us-west-2.amazonaws.com/v1/demo/dynacell_a549_demo.ozx",
+                "bytes": 44324282,
+                "sha256": "de760c836ccaa49279858c1aeaccc07b706e6844eb1a5bcbfc70cf07c6ee14c9",
+                "member": "mock/0/fov0006/0/c/0/0/0/0/0"
+              },
+              {
+                "url": "https://dynacell.s3.us-west-2.amazonaws.com/v1/demo/dynacell_a549_demo.ozx",
+                "bytes": 851,
+                "sha256": "d3ff14e8efe7aeb21c8a8c9351da360a21eeef56051f8c32c6321409df90a706",
+                "member": "mock/0/fov0006/0/zarr.json"
+              }
+            ],
+            "array": "mock/0/fov0006/0"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cosem-cos7-em",
+      "version": 1,
+      "name": "OpenOrganelle COS-7 electron microscopy example",
+      "modality": "electron-microscopy",
+      "source": {
+        "collection": "OpenOrganelle / COSEM: jrc_cos7-1a, reconstruction 1",
+        "url": "https://registry.opendata.aws/janelia-cosem/",
+        "attribution": "CellMap Project Team, HHMI Janelia Research Campus; Melanie Freeman, Harald Hess, David P. Hoffman, Andrew Moore, H. Amalia Pasolli, Gleb Shtengel and C. Shan Xu. Interphase COS-7 dataset: https://figshare.com/articles/dataset/24898086.",
+        "license": "CC-BY-4.0",
+        "license_url": "https://creativecommons.org/licenses/by/4.0/",
+        "accessed": "2026-09-11",
+        "changes": "Selected a 512x512 crop of one full-resolution plane from the published reconstructed uint8 electron-microscopy volume and repacked the decoded values without rescaling."
+      },
+      "assets": [
+        {
+          "id": "cosem-cos7-em",
+          "name": "OpenOrganelle COS-7 electron microscopy",
+          "path": "data/cosem-v1/cosem-cos7-em.raw",
+          "dtype": "uint8",
+          "shape": [
+            1,
+            512,
+            512
+          ],
+          "sha256": "bcc34b3a7e3f170c181df84e5419cd28e1995cd9b5c35801fab22bdc28c410cd",
+          "thumbnail": "thumbnails/cosem-cos7-em.png",
+          "selection": {
+            "axes": [
+              "z",
+              "y",
+              "x"
+            ],
+            "start": [
+              900,
+              2304,
+              4096
+            ],
+            "stop": [
+              901,
+              2816,
+              4608
+            ]
+          },
+          "preview": {
+            "plane": 0,
+            "percentiles": [
+              1,
+              99.5
+            ],
+            "intensity_range": [
+              87.0,
+              192.0
+            ],
+            "resize": "area average, preserve aspect ratio, center on black 128x128 canvas"
+          },
+          "provenance": {
+            "download_bytes": 13561334,
+            "files": [
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/.zarray",
+                "bytes": 328,
+                "sha256": "e381bc76f01412343a146d640e5210ced060738ce2db4662eb1c2751cf04a60f",
+                "etag": "\"38aac20810b7ef6149ed0441ee8c4470\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/32",
+                "bytes": 850396,
+                "sha256": "89484dcf945f9868e2345ef0730685b0b2c58f3d780a0cdf3f7af480d46c4723",
+                "etag": "\"f9e3a77159f681428f1e6de6c5029193\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/33",
+                "bytes": 839978,
+                "sha256": "d8ab46ea723354a12281375bac6dc077cc545a7165a6fbad9fb62a36653181bb",
+                "etag": "\"489afc02cf169858870e103f88d4e583\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/34",
+                "bytes": 849325,
+                "sha256": "7ec37d929ea3d28116c994d05e837d170b3a2c8f3cd426d0ff090aa696ca6312",
+                "etag": "\"0cbde9f5b16055f9346d3af752f99b63\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/35",
+                "bytes": 835026,
+                "sha256": "28df0e9c6a8593b41be05e8103fbc0ec9a7e0c5a46350fd506ab88bb57f05b62",
+                "etag": "\"fc2db149bcac140b1563b83edb4c85c9\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/32",
+                "bytes": 858453,
+                "sha256": "6d1ea1d5e9a32471d350013fcc2085e987a8edb265115912edb38c2f46b46741",
+                "etag": "\"5e55d885d07242323d8dc36a659a9a60\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/33",
+                "bytes": 848788,
+                "sha256": "4988046365e0edd39edb8561155889884d3a72ff788095a602c7901e7eee7280",
+                "etag": "\"51f5d52706279a54bdebb0289f5312c5\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/34",
+                "bytes": 841630,
+                "sha256": "8d4ed29bc21b7eb7c86c417eb6ab63e21fddc6c06b35f1aa400626e31711c349",
+                "etag": "\"63523c39c29d1214f4beed939938ad76\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/35",
+                "bytes": 838012,
+                "sha256": "4926e85e29870c1d711c793494f45aacc23a381fc391669856d9d888aebfd3a7",
+                "etag": "\"f4b5080fd0604f720c90d91495cde0cc\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/32",
+                "bytes": 856362,
+                "sha256": "e3bbadafe61685103c518fd6ce330998e3182ae07a8fa5506b4b130620f0e642",
+                "etag": "\"eb7c6bc7b3aa35849377e3cf96820cc4\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/33",
+                "bytes": 862150,
+                "sha256": "a13c0f038900025a51cc21a5237770620efb8b358cebd744f06011c87fbf1364",
+                "etag": "\"a11350aac968ba041697a9dabda58a40\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/34",
+                "bytes": 847752,
+                "sha256": "7204453457402a0f2b0538f32de793b5030030f04c0e6dc01d559cfc2ee3df61",
+                "etag": "\"e90aebad0735c70015ff538366f58681\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/35",
+                "bytes": 835752,
+                "sha256": "97f1427d3791a9cf47aae45b4d5be82c48361ca015cec276d700211695f038fa",
+                "etag": "\"d3ae75034f3a6220d0e895056c9571ce\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/32",
+                "bytes": 857614,
+                "sha256": "b4fa57c78268a1e181f334f4df87d4d949473a17e80b9e4a95401b6813d7982c",
+                "etag": "\"0227fa662d2f79629a8a2dd9da0767aa\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/33",
+                "bytes": 853479,
+                "sha256": "1fc9432d30d3497c20df2862b8bd385b8678e3c2b3957680b8a2740e4aa0a312",
+                "etag": "\"1e5cb4a90f757cae8b3f9b40483c65bf\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/34",
+                "bytes": 848740,
+                "sha256": "9a2904b9d2a3cc1ac776260d5f8d3bb7da1db76b6f395a727d791ca5482bf025",
+                "etag": "\"372f05c5aff90ab88e4eeb37a139acdd\""
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/35",
+                "bytes": 837877,
+                "sha256": "1445d44afc44172a1aebafdcbe1924ccd6c2d77b1142a9f779f5dca1a86bae5e",
+                "etag": "\"1723633a49828f7a08c3bfe0162415ac\""
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
