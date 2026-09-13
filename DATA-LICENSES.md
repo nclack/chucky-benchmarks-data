@@ -106,20 +106,25 @@ for its conditions, warranty disclaimer and limitation of liability.
 
 ## OpenOrganelle / COSEM
 
-The electron-microscopy image in `data/cosem-v1/` and its preview are shared
-under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), as stated in
+The electron-microscopy samples in `data/cosem-v1/` and `data/cosem-v2/`,
+and their previews, are shared under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), as stated in
 the [COSEM public release](https://registry.opendata.aws/janelia-cosem/).
 Credit: the CellMap Project Team at HHMI Janelia Research Campus, Melanie
 Freeman, Harald Hess, David P. Hoffman, Andrew Moore, H. Amalia Pasolli,
 Gleb Shtengel and C. Shan Xu. See the
 [interphase COS-7 dataset record](https://figshare.com/articles/dataset/24898086)
 for sample contributions and related publications.
-The `jrc_cos7-1a` reconstruction 1 array was accessed on 2026-09-11.
+The `jrc_cos7-1a` reconstruction 1 array was accessed on 2026-09-11 for
+version 1 and 2026-09-13 for version 2.
 
-Changes: selected a 512×512 region of one full-resolution plane from the
-provider's reconstructed uint8 volume and repacked its decoded pixels
-without rescaling. The exact coordinates are in the manifest. The preview
-adjusts contrast and reduces the crop to 128×128.
+Changes: version 1 selected a 512×512 region of one full-resolution plane
+from the provider's reconstructed uint8 volume. Version 2 selects 32
+1024×1024 planes from the same volume with a depth stride of two. Both
+imports preserve the published values without rescaling, filtering,
+averaging or denoising. The exact coordinates and source checksums are
+recorded in the manifest. Previews adjust contrast and reduce a selected
+plane to 128×128. See [the COSEM documentation](docs/cosem.md) for the
+selection and known source processing.
 
 When sharing, preserve attribution, source and license links, supplied
 notices and descriptions of changes. See the

@@ -2,22 +2,22 @@
 
 Public microscopy samples for reproducible
 [chucky][] compression benchmarks.
-The [version 2 review corpus][microscopy-v2-rc1 release] contains seven raw
-files totaling 28.85 MiB, with fluorescence, brightfield, quantitative phase and electron
-microscopy images. It includes an 11.04 MiB BBBC022 fluorescence sample
-for lossy compression and denoising experiments.
+The [version 3 review corpus][microscopy-v3-rc1 release] contains seven raw
+files totaling 60.60 MiB, with fluorescence, brightfield, quantitative phase
+and electron microscopy images. It includes an 11.04 MiB BBBC022 fluorescence
+sample and a 32 MiB COSEM depth sample for compression experiments.
 
 Git stores the manifest and git-annex pointers. Published raw file contents
-are hosted in [GitHub releases][]. The BBBC022 addition can be generated
-from its original TIFFs using the
-[sample import instructions](docs/bbbc022.md).
+are hosted in [GitHub releases][]. Reproducible import instructions describe
+the [BBBC022 fluorescence sample](docs/bbbc022.md) and the
+[COSEM depth sample](docs/cosem.md).
 
 ## Download
 
-The [microscopy-v2-rc1 prerelease][microscopy-v2-rc1 release] includes the
-BBBC022 sample and contains seven raw files totaling 28.85 MiB. It is
-published for review before merge. The latest stable corpus is the
-[microscopy-v1 release][], with six raw files totaling 17.81 MiB.
+The [microscopy-v3-rc1 prerelease][microscopy-v3-rc1 release] includes the
+BBBC022 sample and the expanded COSEM stack, with seven raw files totaling
+60.60 MiB. It is published for review before merge. The latest stable corpus
+is the [microscopy-v1 release][], with six raw files totaling 17.81 MiB.
 
 Browser downloads require no GitHub account, Git or git-annex. Choose the
 attached `.raw` files; the automatically generated source archives contain
@@ -27,9 +27,9 @@ To download all eleven review assets with the
 [GitHub CLI][]:
 
 ```sh
-gh release download microscopy-v2-rc1 \
-  --repo nclack/chucky-benchmarks-data --dir microscopy-v2-rc1
-cd microscopy-v2-rc1
+gh release download microscopy-v3-rc1 \
+  --repo nclack/chucky-benchmarks-data --dir microscopy-v3-rc1
+cd microscopy-v3-rc1
 sha256sum --check SHA256SUMS
 ```
 
@@ -46,12 +46,16 @@ the stable corpus instead.
 Install Git and git-annex, then run:
 
 ```sh
-git clone --branch microscopy-v2-rc1 https://github.com/nclack/chucky-benchmarks-data.git
+git clone --branch microscopy-v3-rc1 https://github.com/nclack/chucky-benchmarks-data.git
 cd chucky-benchmarks-data
 git annex init
 git annex get data/
 git annex fsck data/
 ```
+
+The checkout also retains the original 256 KiB COSEM crop for provenance.
+`git annex get data/` retrieves that file along with the seven current
+manifest assets, for eight raw files totaling 60.85 MiB.
 
 The built-in `web` remote retrieves the files from their recorded release
 URLs. Public downloads require no GitHub account. Pass an individual file
@@ -65,7 +69,7 @@ for GitHub; the `web` remote supplies the content.
 [manifest.json][] records each asset's shape, pixel type, SHA-256
 checksum, source and license. [FORMAT.md][] describes the headerless
 raw format. The published `microscopy-v1` release uses format version 2
-and corpus version 1. The review corpus uses corpus version 2 and retains
+and corpus version 1. The review corpus uses corpus version 3 and retains
 format version 2.
 
 Sources: OpenCell, BBBC010, BBBC022, Cell Painting JUMP-Scope, DynaCell A549, and
@@ -90,6 +94,20 @@ compression experiments. Error measured against the noisy acquisition
 describes compression distortion; it does not by itself establish
 fidelity to the underlying clean signal.
 
+## COSEM depth sample
+
+The [COSEM sample](docs/cosem.md) contains 32 distinct 1024 × 1024 uint8
+planes from a reconstructed FIB-SEM volume of one COS-7 specimen. Its shape
+is `[32, 1024, 1024]`: 1 MiB per plane and 32 MiB in total. The leading axis
+is depth, with neighboring planes retaining natural spatial correlation.
+
+Stream the planes in their recorded order. Depth-one chunks can contain up
+to 1 MiB of source pixels; larger chunks can span multiple real planes.
+The manifest records every source Z coordinate and plane checksum. Every
+output pixel was verified against the published volume, including the
+region matching the original 512 × 512 crop. No planes are exact duplicates.
+The import preserves the provider's reconstructed uint8 values.
+
 ## Contributing
 
 See [CONTRIBUTING.md][] for instructions on adding or modifying
@@ -98,7 +116,7 @@ a dataset and publishing a new release.
 [chucky]: https://github.com/acquire-project/chucky
 [GitHub releases]: https://github.com/nclack/chucky-benchmarks-data/releases
 [microscopy-v1 release]: https://github.com/nclack/chucky-benchmarks-data/releases/tag/microscopy-v1
-[microscopy-v2-rc1 release]: https://github.com/nclack/chucky-benchmarks-data/releases/tag/microscopy-v2-rc1
+[microscopy-v3-rc1 release]: https://github.com/nclack/chucky-benchmarks-data/releases/tag/microscopy-v3-rc1
 [GitHub CLI]: https://cli.github.com/manual/gh_release_download
 [manifest.json]: manifest.json
 [FORMAT.md]: FORMAT.md

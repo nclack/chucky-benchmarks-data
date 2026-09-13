@@ -54,7 +54,9 @@ a maintainer. After review and merge, publish the stable release.
 
 The [BBBC022 sample](docs/bbbc022.md) includes a reproducible import script
 with source-image checksums, deterministic field selection, and exact
-pixel checks.
+pixel checks. The [COSEM import](docs/cosem.md) expands an existing sample
+while checking source pixels, unique planes, and overlap with its previous
+version.
 
 ## Publish a prerelease for review
 

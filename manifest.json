@@ -12,7 +12,7 @@
     "order": "C"
   },
   "id": "microscopy-core",
-  "version": 2,
+  "version": 3,
   "name": "Microscopy compression benchmark examples",
   "datasets": [
     {
@@ -270,8 +270,8 @@
     },
     {
       "id": "cosem-cos7-em",
-      "version": 1,
-      "name": "OpenOrganelle COS-7 electron microscopy example",
+      "version": 2,
+      "name": "OpenOrganelle COS-7 FIB-SEM depth sample",
       "modality": "electron-microscopy",
       "source": {
         "collection": "OpenOrganelle / COSEM: jrc_cos7-1a, reconstruction 1",
@@ -279,22 +279,57 @@
         "attribution": "CellMap Project Team, HHMI Janelia Research Campus; Melanie Freeman, Harald Hess, David P. Hoffman, Andrew Moore, H. Amalia Pasolli, Gleb Shtengel and C. Shan Xu. Interphase COS-7 dataset: https://figshare.com/articles/dataset/24898086.",
         "license": "CC-BY-4.0",
         "license_url": "https://creativecommons.org/licenses/by/4.0/",
-        "accessed": "2026-09-11",
-        "changes": "Selected a 512x512 crop of one full-resolution plane from the published reconstructed uint8 electron-microscopy volume and repacked the decoded values without rescaling."
+        "accessed": "2026-09-13",
+        "changes": "Selected 32 depth planes at Z=896,898,...,958, Y=2048:3072 and X=3840:4864 from reconstruction 1, full-resolution s0. Repacked the published uint8 values without rescaling, interpolation, filtering, averaging, or denoising. The leading axis follows depth through one specimen.",
+        "acquisition": {
+          "modality": "focused ion beam scanning electron microscopy (FIB-SEM)",
+          "acquisition_id": "jrc_cos7-1a"
+        },
+        "reconstruction": {
+          "id": "recon-1",
+          "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0",
+          "axes": [
+            "z",
+            "y",
+            "x"
+          ],
+          "shape": [
+            1813,
+            4368,
+            20609
+          ],
+          "dtype": "uint8",
+          "chunks": [
+            64,
+            128,
+            128
+          ],
+          "compressor": {
+            "id": "zstd",
+            "level": 6
+          },
+          "grid_spacing_nm": [
+            2,
+            2,
+            2
+          ],
+          "grid_metadata_url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/.zattrs",
+          "processing": "Provider-reconstructed and aligned uint8 volume. Earlier intensity conversion and other processing details are not established by the array metadata. Grid spacing describes this reconstruction, not a verified physical milling pitch; the current Figshare record links reconstruction 2 with a different grid."
+        }
       },
       "assets": [
         {
           "id": "cosem-cos7-em",
-          "name": "OpenOrganelle COS-7 electron microscopy",
-          "path": "data/cosem-v1/cosem-cos7-em.raw",
+          "name": "OpenOrganelle COS-7 FIB-SEM depth sample",
+          "path": "data/cosem-v2/cosem-cos7-em-stack.raw",
           "dtype": "uint8",
           "shape": [
-            1,
-            512,
-            512
+            32,
+            1024,
+            1024
           ],
-          "sha256": "bcc34b3a7e3f170c181df84e5419cd28e1995cd9b5c35801fab22bdc28c410cd",
-          "thumbnail": "thumbnails/cosem-cos7-em.png",
+          "sha256": "38fa12d66991e8f677a2f1c36de79d1c071a268944e690f572f4e265f59eacb2",
+          "thumbnail": "thumbnails/cosem-cos7-em-v2.png",
           "selection": {
             "axes": [
               "z",
@@ -302,132 +337,979 @@
               "x"
             ],
             "start": [
-              900,
-              2304,
-              4096
+              896,
+              2048,
+              3840
             ],
             "stop": [
-              901,
-              2816,
-              4608
+              960,
+              3072,
+              4864
+            ],
+            "step": [
+              2,
+              1,
+              1
             ]
           },
           "preview": {
-            "plane": 0,
+            "plane": 2,
             "percentiles": [
               1,
               99.5
             ],
             "intensity_range": [
-              87.0,
-              192.0
+              88.0,
+              189.0
             ],
-            "resize": "area average, preserve aspect ratio, center on black 128x128 canvas"
+            "resize": "area average to 128x128"
           },
           "provenance": {
-            "download_bytes": 13561334,
+            "download_bytes": 53593296,
             "files": [
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/.zarray",
                 "bytes": 328,
-                "sha256": "e381bc76f01412343a146d640e5210ced060738ce2db4662eb1c2751cf04a60f",
-                "etag": "\"38aac20810b7ef6149ed0441ee8c4470\""
+                "etag": "\"38aac20810b7ef6149ed0441ee8c4470\"",
+                "path": "array/.zarray",
+                "sha256": "e381bc76f01412343a146d640e5210ced060738ce2db4662eb1c2751cf04a60f"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/.zattrs",
+                "bytes": 6912,
+                "etag": "\"541bc0fb568ee26f321d120d44002b49\"",
+                "path": "source-attributes.json",
+                "sha256": "8315b1b98222146f9391ccd9c2273d2a93ff88de24bf73cf43169e1a78f5bb7b"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/16/30",
+                "bytes": 848106,
+                "etag": "\"47099fc0598f3af1a669762594a9342a\"",
+                "path": "array/14/16/30",
+                "coordinate": [
+                  14,
+                  16,
+                  30
+                ],
+                "sha256": "09bf3d16fee26ea8c11f58b1f186e3b865221d7edabddd83988f2dfa8f089b80"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/16/31",
+                "bytes": 842802,
+                "etag": "\"367fe3f9b0cc911e01b30d14e2b1921c\"",
+                "path": "array/14/16/31",
+                "coordinate": [
+                  14,
+                  16,
+                  31
+                ],
+                "sha256": "40fddc9634f0954e63f2533692e1429649209fcb99ba8e46200cbf4048ca0065"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/16/32",
+                "bytes": 846027,
+                "etag": "\"99c66d44cf94d6c695f1caabbacb17d2\"",
+                "path": "array/14/16/32",
+                "coordinate": [
+                  14,
+                  16,
+                  32
+                ],
+                "sha256": "a9a694e73dc27b4e81f0ec0ba6e7f1a224c0539b8735ee3d622b1dc4b423cf60"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/16/33",
+                "bytes": 801855,
+                "etag": "\"7b955907e25c43bb4d38f77e4d82e42e\"",
+                "path": "array/14/16/33",
+                "coordinate": [
+                  14,
+                  16,
+                  33
+                ],
+                "sha256": "a2ff8257962f1d0f5b6be989b4f04bbfd8a127ae3611f08e85fb0324d8e6cbbf"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/16/34",
+                "bytes": 783528,
+                "etag": "\"d9e1c379a0ebffa0f472cd94498aa0d7\"",
+                "path": "array/14/16/34",
+                "coordinate": [
+                  14,
+                  16,
+                  34
+                ],
+                "sha256": "46a23afaa8d99a66b22d3ad0cd721217ce484d3bcd6918c0ea94e12c2858e752"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/16/35",
+                "bytes": 783439,
+                "etag": "\"0e2b2910c7a5389dae83e57703c582ad\"",
+                "path": "array/14/16/35",
+                "coordinate": [
+                  14,
+                  16,
+                  35
+                ],
+                "sha256": "664f2a7ac9a9fab20ee637429411ff0934cc0eee011d04423905650f1337894c"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/16/36",
+                "bytes": 782414,
+                "etag": "\"43020aa16e04a12aab1f5b72f6184a48\"",
+                "path": "array/14/16/36",
+                "coordinate": [
+                  14,
+                  16,
+                  36
+                ],
+                "sha256": "3a8db9df8ce28c70814c13722b9a59527831bf75fda0ebb8f2abd2196f137468"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/16/37",
+                "bytes": 782609,
+                "etag": "\"c6721f6338793636089852bb6bb9bbcc\"",
+                "path": "array/14/16/37",
+                "coordinate": [
+                  14,
+                  16,
+                  37
+                ],
+                "sha256": "952f3dc4cc3e6936942e631d4c1d01bcbb38dbbd25129f87c1780b19d1eb2cd5"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/17/30",
+                "bytes": 853543,
+                "etag": "\"5e8632e22d3027ac3315ca9607f950cd\"",
+                "path": "array/14/17/30",
+                "coordinate": [
+                  14,
+                  17,
+                  30
+                ],
+                "sha256": "fcb4ef4493ced40d476010bd8de75b27dedbf1c9eaf30a8ce3fc0573e0734fb6"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/17/31",
+                "bytes": 835898,
+                "etag": "\"b22707cc645f25d76c649809125c28a3\"",
+                "path": "array/14/17/31",
+                "coordinate": [
+                  14,
+                  17,
+                  31
+                ],
+                "sha256": "28363049a2ea942ab60f5b63f521f86e7b0f7a1fdd96fecc2f8f6c14a447f9df"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/17/32",
+                "bytes": 851575,
+                "etag": "\"39f1cf71583f1ff3a227f9200c76bfb5\"",
+                "path": "array/14/17/32",
+                "coordinate": [
+                  14,
+                  17,
+                  32
+                ],
+                "sha256": "6b26f79c3057b8621944ed91f8a48bc74b094b4c105503359de1f6c69a39cada"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/17/33",
+                "bytes": 832719,
+                "etag": "\"395d00a365ead98c77f16e81a09451af\"",
+                "path": "array/14/17/33",
+                "coordinate": [
+                  14,
+                  17,
+                  33
+                ],
+                "sha256": "d389e4a4bf92160a07e121c24d51a4ea567d48ae8219bebf622ea66c3eb5ca85"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/17/34",
+                "bytes": 834019,
+                "etag": "\"958574c82606907715965aa9613a4ab5\"",
+                "path": "array/14/17/34",
+                "coordinate": [
+                  14,
+                  17,
+                  34
+                ],
+                "sha256": "c9921fb968fed26a091771ef49ad842657335f4b6df2e65c53d90ab7e7a5c400"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/17/35",
+                "bytes": 807858,
+                "etag": "\"341a47d18ab0fff53831d214f49d5aab\"",
+                "path": "array/14/17/35",
+                "coordinate": [
+                  14,
+                  17,
+                  35
+                ],
+                "sha256": "96d16a3d719981fdc48f2993a49847fc362d431874df9b05487d011f0ea34966"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/17/36",
+                "bytes": 785573,
+                "etag": "\"4b1d5cdd5713991bfa40fd1c9c76335e\"",
+                "path": "array/14/17/36",
+                "coordinate": [
+                  14,
+                  17,
+                  36
+                ],
+                "sha256": "de1a1a98599e11cae2b9095560db2181f3be294e3044cdb940aff7388e657af4"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/17/37",
+                "bytes": 784584,
+                "etag": "\"6a3a74fe4f43b188be48c4a4cded2eed\"",
+                "path": "array/14/17/37",
+                "coordinate": [
+                  14,
+                  17,
+                  37
+                ],
+                "sha256": "f0c99c9f37f933977e78cc9154ed89160397332466c2def8c521573c9a21dcbe"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/30",
+                "bytes": 826991,
+                "etag": "\"f5333b160f7bb65f6322bcf983cedd3b\"",
+                "path": "array/14/18/30",
+                "coordinate": [
+                  14,
+                  18,
+                  30
+                ],
+                "sha256": "e7448ec41244608d079b86d468ec9e0d35fc7f79214777f7e1c73641376fcc35"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/31",
+                "bytes": 853608,
+                "etag": "\"b135ea5c587e0c5ea42578cc38369a45\"",
+                "path": "array/14/18/31",
+                "coordinate": [
+                  14,
+                  18,
+                  31
+                ],
+                "sha256": "5f671f8f34ea3ce8424e2bfc75c047d5955a1b67797e2ddb53cc24c3d078bbe3"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/32",
                 "bytes": 850396,
-                "sha256": "89484dcf945f9868e2345ef0730685b0b2c58f3d780a0cdf3f7af480d46c4723",
-                "etag": "\"f9e3a77159f681428f1e6de6c5029193\""
+                "etag": "\"f9e3a77159f681428f1e6de6c5029193\"",
+                "path": "array/14/18/32",
+                "coordinate": [
+                  14,
+                  18,
+                  32
+                ],
+                "sha256": "89484dcf945f9868e2345ef0730685b0b2c58f3d780a0cdf3f7af480d46c4723"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/33",
                 "bytes": 839978,
-                "sha256": "d8ab46ea723354a12281375bac6dc077cc545a7165a6fbad9fb62a36653181bb",
-                "etag": "\"489afc02cf169858870e103f88d4e583\""
+                "etag": "\"489afc02cf169858870e103f88d4e583\"",
+                "path": "array/14/18/33",
+                "coordinate": [
+                  14,
+                  18,
+                  33
+                ],
+                "sha256": "d8ab46ea723354a12281375bac6dc077cc545a7165a6fbad9fb62a36653181bb"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/34",
                 "bytes": 849325,
-                "sha256": "7ec37d929ea3d28116c994d05e837d170b3a2c8f3cd426d0ff090aa696ca6312",
-                "etag": "\"0cbde9f5b16055f9346d3af752f99b63\""
+                "etag": "\"0cbde9f5b16055f9346d3af752f99b63\"",
+                "path": "array/14/18/34",
+                "coordinate": [
+                  14,
+                  18,
+                  34
+                ],
+                "sha256": "7ec37d929ea3d28116c994d05e837d170b3a2c8f3cd426d0ff090aa696ca6312"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/35",
                 "bytes": 835026,
-                "sha256": "28df0e9c6a8593b41be05e8103fbc0ec9a7e0c5a46350fd506ab88bb57f05b62",
-                "etag": "\"fc2db149bcac140b1563b83edb4c85c9\""
+                "etag": "\"fc2db149bcac140b1563b83edb4c85c9\"",
+                "path": "array/14/18/35",
+                "coordinate": [
+                  14,
+                  18,
+                  35
+                ],
+                "sha256": "28df0e9c6a8593b41be05e8103fbc0ec9a7e0c5a46350fd506ab88bb57f05b62"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/36",
+                "bytes": 831535,
+                "etag": "\"101541f86cd1e1f17fdb88591b5083e0\"",
+                "path": "array/14/18/36",
+                "coordinate": [
+                  14,
+                  18,
+                  36
+                ],
+                "sha256": "bcfacea54a7ceea68ebdc62d7c729f18f103ee6d0761d5a001ac601bf4959bed"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/18/37",
+                "bytes": 808743,
+                "etag": "\"5a05b2531fe7d2edbbb4694b31502aec\"",
+                "path": "array/14/18/37",
+                "coordinate": [
+                  14,
+                  18,
+                  37
+                ],
+                "sha256": "d131b640eac08b914ed77bb695c0c0e75df9607fa122f5e249e7ec573bb94269"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/30",
+                "bytes": 846295,
+                "etag": "\"e7e32f89da0cb9d10d2c0fce3eaac179\"",
+                "path": "array/14/19/30",
+                "coordinate": [
+                  14,
+                  19,
+                  30
+                ],
+                "sha256": "272184ed78c38bbf146ccc87b23ce3ce7c7bac2b2fdb9b07eea3756dfcb975a4"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/31",
+                "bytes": 857741,
+                "etag": "\"4bfbd06ab5e702872f659454c656766c\"",
+                "path": "array/14/19/31",
+                "coordinate": [
+                  14,
+                  19,
+                  31
+                ],
+                "sha256": "5e3bc5f184f1983e672aba59e1d29b34dc508189cab62ce870683b1c1705b9d6"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/32",
                 "bytes": 858453,
-                "sha256": "6d1ea1d5e9a32471d350013fcc2085e987a8edb265115912edb38c2f46b46741",
-                "etag": "\"5e55d885d07242323d8dc36a659a9a60\""
+                "etag": "\"5e55d885d07242323d8dc36a659a9a60\"",
+                "path": "array/14/19/32",
+                "coordinate": [
+                  14,
+                  19,
+                  32
+                ],
+                "sha256": "6d1ea1d5e9a32471d350013fcc2085e987a8edb265115912edb38c2f46b46741"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/33",
                 "bytes": 848788,
-                "sha256": "4988046365e0edd39edb8561155889884d3a72ff788095a602c7901e7eee7280",
-                "etag": "\"51f5d52706279a54bdebb0289f5312c5\""
+                "etag": "\"51f5d52706279a54bdebb0289f5312c5\"",
+                "path": "array/14/19/33",
+                "coordinate": [
+                  14,
+                  19,
+                  33
+                ],
+                "sha256": "4988046365e0edd39edb8561155889884d3a72ff788095a602c7901e7eee7280"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/34",
                 "bytes": 841630,
-                "sha256": "8d4ed29bc21b7eb7c86c417eb6ab63e21fddc6c06b35f1aa400626e31711c349",
-                "etag": "\"63523c39c29d1214f4beed939938ad76\""
+                "etag": "\"63523c39c29d1214f4beed939938ad76\"",
+                "path": "array/14/19/34",
+                "coordinate": [
+                  14,
+                  19,
+                  34
+                ],
+                "sha256": "8d4ed29bc21b7eb7c86c417eb6ab63e21fddc6c06b35f1aa400626e31711c349"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/35",
                 "bytes": 838012,
-                "sha256": "4926e85e29870c1d711c793494f45aacc23a381fc391669856d9d888aebfd3a7",
-                "etag": "\"f4b5080fd0604f720c90d91495cde0cc\""
+                "etag": "\"f4b5080fd0604f720c90d91495cde0cc\"",
+                "path": "array/14/19/35",
+                "coordinate": [
+                  14,
+                  19,
+                  35
+                ],
+                "sha256": "4926e85e29870c1d711c793494f45aacc23a381fc391669856d9d888aebfd3a7"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/36",
+                "bytes": 840316,
+                "etag": "\"bc876d02382d05dcea9103ca207335fc\"",
+                "path": "array/14/19/36",
+                "coordinate": [
+                  14,
+                  19,
+                  36
+                ],
+                "sha256": "5bddcede424e9e2d84173570da4724bf2ee951ebc76f8c0f48dcdce60ffba7cc"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/19/37",
+                "bytes": 842647,
+                "etag": "\"9a99479fb94cf0803385cbe8bc7a11f6\"",
+                "path": "array/14/19/37",
+                "coordinate": [
+                  14,
+                  19,
+                  37
+                ],
+                "sha256": "f8f6ec2c09e11b5c5f71752684c68f4ca95db90df4ed10627a11364c55ff1a95"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/30",
+                "bytes": 831414,
+                "etag": "\"6d77adf81aa5b8e52ad9da903aec55f9\"",
+                "path": "array/14/20/30",
+                "coordinate": [
+                  14,
+                  20,
+                  30
+                ],
+                "sha256": "86197ec6616ababad7e3fb5aa52cac17833418423164ede11c2f20d36aa3ef2f"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/31",
+                "bytes": 846529,
+                "etag": "\"d065b471b130eff4031947d2d91b6514\"",
+                "path": "array/14/20/31",
+                "coordinate": [
+                  14,
+                  20,
+                  31
+                ],
+                "sha256": "7ac900a985937e115497d9e06753315396299eebc7d34e41e31871f8997665d1"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/32",
                 "bytes": 856362,
-                "sha256": "e3bbadafe61685103c518fd6ce330998e3182ae07a8fa5506b4b130620f0e642",
-                "etag": "\"eb7c6bc7b3aa35849377e3cf96820cc4\""
+                "etag": "\"eb7c6bc7b3aa35849377e3cf96820cc4\"",
+                "path": "array/14/20/32",
+                "coordinate": [
+                  14,
+                  20,
+                  32
+                ],
+                "sha256": "e3bbadafe61685103c518fd6ce330998e3182ae07a8fa5506b4b130620f0e642"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/33",
                 "bytes": 862150,
-                "sha256": "a13c0f038900025a51cc21a5237770620efb8b358cebd744f06011c87fbf1364",
-                "etag": "\"a11350aac968ba041697a9dabda58a40\""
+                "etag": "\"a11350aac968ba041697a9dabda58a40\"",
+                "path": "array/14/20/33",
+                "coordinate": [
+                  14,
+                  20,
+                  33
+                ],
+                "sha256": "a13c0f038900025a51cc21a5237770620efb8b358cebd744f06011c87fbf1364"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/34",
                 "bytes": 847752,
-                "sha256": "7204453457402a0f2b0538f32de793b5030030f04c0e6dc01d559cfc2ee3df61",
-                "etag": "\"e90aebad0735c70015ff538366f58681\""
+                "etag": "\"e90aebad0735c70015ff538366f58681\"",
+                "path": "array/14/20/34",
+                "coordinate": [
+                  14,
+                  20,
+                  34
+                ],
+                "sha256": "7204453457402a0f2b0538f32de793b5030030f04c0e6dc01d559cfc2ee3df61"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/35",
                 "bytes": 835752,
-                "sha256": "97f1427d3791a9cf47aae45b4d5be82c48361ca015cec276d700211695f038fa",
-                "etag": "\"d3ae75034f3a6220d0e895056c9571ce\""
+                "etag": "\"d3ae75034f3a6220d0e895056c9571ce\"",
+                "path": "array/14/20/35",
+                "coordinate": [
+                  14,
+                  20,
+                  35
+                ],
+                "sha256": "97f1427d3791a9cf47aae45b4d5be82c48361ca015cec276d700211695f038fa"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/36",
+                "bytes": 854350,
+                "etag": "\"bf950c21925bf36c1767e7fd17bfb03c\"",
+                "path": "array/14/20/36",
+                "coordinate": [
+                  14,
+                  20,
+                  36
+                ],
+                "sha256": "5417d464dc0d464aab6fde29479a4442d595e9f4a28eb943b9c0c61e4aa8a563"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/20/37",
+                "bytes": 846944,
+                "etag": "\"36d5d79d414b65ee6cf44bd484591f61\"",
+                "path": "array/14/20/37",
+                "coordinate": [
+                  14,
+                  20,
+                  37
+                ],
+                "sha256": "2afb42474a4b1fc6494d4f5a9c2c4977e47c373f0df4136b58421eb4415192da"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/30",
+                "bytes": 824117,
+                "etag": "\"d1d8618c3b52fd9b0333e761c7688581\"",
+                "path": "array/14/21/30",
+                "coordinate": [
+                  14,
+                  21,
+                  30
+                ],
+                "sha256": "e77dea94f4d769d52969e8cfdff4e250389a829743f16e42aca077841992bb12"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/31",
+                "bytes": 845067,
+                "etag": "\"1d50a726866d83ba56f20a3c9d593f59\"",
+                "path": "array/14/21/31",
+                "coordinate": [
+                  14,
+                  21,
+                  31
+                ],
+                "sha256": "a3bbe72f33c322c077e00cfdb47ace8cf39ca6465d2f040ae8d7a247962c6dbe"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/32",
                 "bytes": 857614,
-                "sha256": "b4fa57c78268a1e181f334f4df87d4d949473a17e80b9e4a95401b6813d7982c",
-                "etag": "\"0227fa662d2f79629a8a2dd9da0767aa\""
+                "etag": "\"0227fa662d2f79629a8a2dd9da0767aa\"",
+                "path": "array/14/21/32",
+                "coordinate": [
+                  14,
+                  21,
+                  32
+                ],
+                "sha256": "b4fa57c78268a1e181f334f4df87d4d949473a17e80b9e4a95401b6813d7982c"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/33",
                 "bytes": 853479,
-                "sha256": "1fc9432d30d3497c20df2862b8bd385b8678e3c2b3957680b8a2740e4aa0a312",
-                "etag": "\"1e5cb4a90f757cae8b3f9b40483c65bf\""
+                "etag": "\"1e5cb4a90f757cae8b3f9b40483c65bf\"",
+                "path": "array/14/21/33",
+                "coordinate": [
+                  14,
+                  21,
+                  33
+                ],
+                "sha256": "1fc9432d30d3497c20df2862b8bd385b8678e3c2b3957680b8a2740e4aa0a312"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/34",
                 "bytes": 848740,
-                "sha256": "9a2904b9d2a3cc1ac776260d5f8d3bb7da1db76b6f395a727d791ca5482bf025",
-                "etag": "\"372f05c5aff90ab88e4eeb37a139acdd\""
+                "etag": "\"372f05c5aff90ab88e4eeb37a139acdd\"",
+                "path": "array/14/21/34",
+                "coordinate": [
+                  14,
+                  21,
+                  34
+                ],
+                "sha256": "9a2904b9d2a3cc1ac776260d5f8d3bb7da1db76b6f395a727d791ca5482bf025"
               },
               {
                 "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/35",
                 "bytes": 837877,
-                "sha256": "1445d44afc44172a1aebafdcbe1924ccd6c2d77b1142a9f779f5dca1a86bae5e",
-                "etag": "\"1723633a49828f7a08c3bfe0162415ac\""
+                "etag": "\"1723633a49828f7a08c3bfe0162415ac\"",
+                "path": "array/14/21/35",
+                "coordinate": [
+                  14,
+                  21,
+                  35
+                ],
+                "sha256": "1445d44afc44172a1aebafdcbe1924ccd6c2d77b1142a9f779f5dca1a86bae5e"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/36",
+                "bytes": 849722,
+                "etag": "\"2951fd36417dd78342487bad9e56f741\"",
+                "path": "array/14/21/36",
+                "coordinate": [
+                  14,
+                  21,
+                  36
+                ],
+                "sha256": "b056144381db45e9d8a4c916b5cad50a10e5134ed2cd260242405fc96c3ab738"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/21/37",
+                "bytes": 847535,
+                "etag": "\"ef2e072f42d0f1c9be5fe9a564d1bdf6\"",
+                "path": "array/14/21/37",
+                "coordinate": [
+                  14,
+                  21,
+                  37
+                ],
+                "sha256": "4aa3d84a794eaa2fed38c99e43ef7aa01edc5311819e732ac47c442c858a8942"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/22/30",
+                "bytes": 844106,
+                "etag": "\"b82de4cecfef6c5f8fc357e8475525c6\"",
+                "path": "array/14/22/30",
+                "coordinate": [
+                  14,
+                  22,
+                  30
+                ],
+                "sha256": "5ed58b64b8b1e412922ad47cc27a71afbb109a1cd590ce642301fd15de46ccb8"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/22/31",
+                "bytes": 844783,
+                "etag": "\"de1bdcdd78ab214243d1b75e448e5143\"",
+                "path": "array/14/22/31",
+                "coordinate": [
+                  14,
+                  22,
+                  31
+                ],
+                "sha256": "14649a14c5a8fa6f08363210c39233aca7b7106a2a5b0b7d644bde267fdeb223"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/22/32",
+                "bytes": 851931,
+                "etag": "\"2ba79afd7887c5cec9ddb9327250d946\"",
+                "path": "array/14/22/32",
+                "coordinate": [
+                  14,
+                  22,
+                  32
+                ],
+                "sha256": "2b7d1d2401da57a65ababbfaee20d96f59dbe755aebbc37c61bf4a38a74c15ab"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/22/33",
+                "bytes": 856665,
+                "etag": "\"ae9ff3e4025e7d44d84309d7df3c480b\"",
+                "path": "array/14/22/33",
+                "coordinate": [
+                  14,
+                  22,
+                  33
+                ],
+                "sha256": "d8b4dcb1cf2a0ead3b2c002148fd0949bbc6d25d7ec08e9c89797f39ecc587bc"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/22/34",
+                "bytes": 846090,
+                "etag": "\"7efaa1ee204573842d583134358024a6\"",
+                "path": "array/14/22/34",
+                "coordinate": [
+                  14,
+                  22,
+                  34
+                ],
+                "sha256": "beec8f62588bfbac0cc81eae40d34378e4ce680dc9c84e36f3c5d268ebfc1cfe"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/22/35",
+                "bytes": 832815,
+                "etag": "\"a95252fb650eec8b25143a8e2a7b324b\"",
+                "path": "array/14/22/35",
+                "coordinate": [
+                  14,
+                  22,
+                  35
+                ],
+                "sha256": "2c219cd23c2bcd3572c5910165a0a5928e1055f9f6e67fc6e4073a32c4829298"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/22/36",
+                "bytes": 833014,
+                "etag": "\"626f89243c0203c1f4d651ba2effb64b\"",
+                "path": "array/14/22/36",
+                "coordinate": [
+                  14,
+                  22,
+                  36
+                ],
+                "sha256": "1ad24b03f5dfe90ea3c038d46b765b7ce94198a82442461372076ea5c805f5ea"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/22/37",
+                "bytes": 843998,
+                "etag": "\"bc4a2dad5568bdafa6c2aafb4731f2df\"",
+                "path": "array/14/22/37",
+                "coordinate": [
+                  14,
+                  22,
+                  37
+                ],
+                "sha256": "9cca8eeeca7d9ff9c691cb0e6fbc9848ba8e07ec24b2ebc49064697fa8723fdd"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/23/30",
+                "bytes": 845107,
+                "etag": "\"35d911ac518b1e4fee297974a2d03085\"",
+                "path": "array/14/23/30",
+                "coordinate": [
+                  14,
+                  23,
+                  30
+                ],
+                "sha256": "ee1c4f93738cb41bc9563bdb8ee7b7bf4e7159de2a344180f847d9e006ac3995"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/23/31",
+                "bytes": 844927,
+                "etag": "\"cb80b6f91348827d49263889464a8ad6\"",
+                "path": "array/14/23/31",
+                "coordinate": [
+                  14,
+                  23,
+                  31
+                ],
+                "sha256": "541d809a7b5f735560fa73e4bc1e907593e9ca500fc5e1124b599d14c8d9fe03"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/23/32",
+                "bytes": 857042,
+                "etag": "\"ff71bc2499bae8ed64a33f67b11581fa\"",
+                "path": "array/14/23/32",
+                "coordinate": [
+                  14,
+                  23,
+                  32
+                ],
+                "sha256": "bfb4af54950b06ab0b65b91b0e5333c9aaf09446a80425e656474156fd4b38b0"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/23/33",
+                "bytes": 846150,
+                "etag": "\"573f2cc38237b88a9b50c4819120d05e\"",
+                "path": "array/14/23/33",
+                "coordinate": [
+                  14,
+                  23,
+                  33
+                ],
+                "sha256": "adb3e34e7ca1ceedf92639ecad07242660e9542afbe2bde5fda08532fb32b6fa"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/23/34",
+                "bytes": 845554,
+                "etag": "\"06f7bf01dc1fba4304643b7023006543\"",
+                "path": "array/14/23/34",
+                "coordinate": [
+                  14,
+                  23,
+                  34
+                ],
+                "sha256": "ad534f58f68711d6cc6b13055f689a8782973034f235930eef9dc4eef820850c"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/23/35",
+                "bytes": 840485,
+                "etag": "\"b1c7326dc0fc6f371f5266d8dda1e035\"",
+                "path": "array/14/23/35",
+                "coordinate": [
+                  14,
+                  23,
+                  35
+                ],
+                "sha256": "185ea90e9bdb6099e11eea3141f36c352b64c8688c9bff92ddef484630ebd25b"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/23/36",
+                "bytes": 835150,
+                "etag": "\"c86a7d19ae02a49b1a24621aba59104e\"",
+                "path": "array/14/23/36",
+                "coordinate": [
+                  14,
+                  23,
+                  36
+                ],
+                "sha256": "3d0aa32c25bf7d9c84f22b028981d0f132579466528ba7d09c984ba04bcfafed"
+              },
+              {
+                "url": "https://janelia-cosem-datasets.s3.amazonaws.com/jrc_cos7-1a/jrc_cos7-1a.zarr/recon-1/em/fibsem-uint8/s0/14/23/37",
+                "bytes": 846802,
+                "etag": "\"2376ae1b11baa6dbb26951a08d8e3772\"",
+                "path": "array/14/23/37",
+                "coordinate": [
+                  14,
+                  23,
+                  37
+                ],
+                "sha256": "f9bf1a943c1ef5730afb1b56f3307266e67ac811e882c0fd8cd58b61b522f1d9"
+              }
+            ],
+            "planes": [
+              {
+                "plane": 0,
+                "source_z": 896,
+                "sha256": "c59d8be4d9864d3429da8492cd75aa88ef76dbb8014ab7854b436232ccf03064"
+              },
+              {
+                "plane": 1,
+                "source_z": 898,
+                "sha256": "bb7ebf14403a70d7c0820d9510e902c795e21d4860cc451f4ecc9cf4109c797c"
+              },
+              {
+                "plane": 2,
+                "source_z": 900,
+                "sha256": "b12df2c8a9c75918161cd6a90695503e43235f039afbb9da65ba81eddd9132fc"
+              },
+              {
+                "plane": 3,
+                "source_z": 902,
+                "sha256": "47e3c73678b176c8b5aa0e9e4a8a1b4e4c526c89fcde8797bf1be16461d8cab3"
+              },
+              {
+                "plane": 4,
+                "source_z": 904,
+                "sha256": "9aac2528f3820c9b1959f3ff9b8e172270656f19bea55be46094da282744b494"
+              },
+              {
+                "plane": 5,
+                "source_z": 906,
+                "sha256": "ce80077e5f347ef2bef5fa14bc2926c9f86ba8352e63b0ac2855aa8ed1ba011e"
+              },
+              {
+                "plane": 6,
+                "source_z": 908,
+                "sha256": "3260d076970251f6d8846696ec03506d922586838cdec6f62259c2dfd4242712"
+              },
+              {
+                "plane": 7,
+                "source_z": 910,
+                "sha256": "be93009d99dffb9f1d3586929c6977a01dc4c7ff8765f48d2bce692e1060f961"
+              },
+              {
+                "plane": 8,
+                "source_z": 912,
+                "sha256": "4bd58b0052a66fb37ce722c078f7a4c4192f15e387e53226984b5437fc19855b"
+              },
+              {
+                "plane": 9,
+                "source_z": 914,
+                "sha256": "6df62616d1aae7602423d2c2281875554b385da901c5eee4643d2c0fe5f88b42"
+              },
+              {
+                "plane": 10,
+                "source_z": 916,
+                "sha256": "1ac42fcbfae7f8d93357dbef3109583ba4d24296101399286cf5aee35796e26b"
+              },
+              {
+                "plane": 11,
+                "source_z": 918,
+                "sha256": "3f96d8bd432637b020e8ff3f79d3b9a6f0a568ebc48a3cc4a26d8d8a6f0cc2c9"
+              },
+              {
+                "plane": 12,
+                "source_z": 920,
+                "sha256": "f698435737605e63e9c36ce064a972dfc1cb6bd9b5bdf43cbbd18f05d6d72d87"
+              },
+              {
+                "plane": 13,
+                "source_z": 922,
+                "sha256": "43c0e6d42a5e81f5d1c486e857586ca4ef6ec3a681c7dcf3d47e0a1d68d9a880"
+              },
+              {
+                "plane": 14,
+                "source_z": 924,
+                "sha256": "302651ef7a9e7799395dce07fce480f6d911ed56881901470c82fca32dc442ca"
+              },
+              {
+                "plane": 15,
+                "source_z": 926,
+                "sha256": "f0691868893e227ebde14bd7856424b3c3d05d33b02fd46dfdd84cdb7fd4881a"
+              },
+              {
+                "plane": 16,
+                "source_z": 928,
+                "sha256": "689a995fdf5fd4d092d6493a97ce77df387aeafae91fcdb06a7f6d8b71207b43"
+              },
+              {
+                "plane": 17,
+                "source_z": 930,
+                "sha256": "a3b138f969fcf7f74ac06c3dc604030c66da2820833e82eee40e9c7d6989941e"
+              },
+              {
+                "plane": 18,
+                "source_z": 932,
+                "sha256": "c140e099a31c7c9de44f556bdf6cb60a112f8472ff76659a99f5154cf3d2ef66"
+              },
+              {
+                "plane": 19,
+                "source_z": 934,
+                "sha256": "163ba95093a1e18a985833055d5748f669f577b1d57d95a91229281ab44cbd41"
+              },
+              {
+                "plane": 20,
+                "source_z": 936,
+                "sha256": "82bef60ec87378631ee3c621c4881e819d7c841bac16573c397c5f5cb4768276"
+              },
+              {
+                "plane": 21,
+                "source_z": 938,
+                "sha256": "766e96e5c7859468bc2cbd4806b4c366a492459c5dbba53c5ea00fe5e346a4d4"
+              },
+              {
+                "plane": 22,
+                "source_z": 940,
+                "sha256": "2e5d20aba3bc11cf512097c9740bb584458e20b80801c00cc187d48a09763ae6"
+              },
+              {
+                "plane": 23,
+                "source_z": 942,
+                "sha256": "55b0dc105e4b5662777edbde7ee4d1fe7d7fb2db20f34c5d785d6d73833a08b1"
+              },
+              {
+                "plane": 24,
+                "source_z": 944,
+                "sha256": "5657dbead56daa471e6c27c08572d265f9eccc2d4aac43f0a506af3dd26c77ea"
+              },
+              {
+                "plane": 25,
+                "source_z": 946,
+                "sha256": "499e231195b2512e3b7ef9f37b7861424693f05b45e9c1902b09f0361471f4c8"
+              },
+              {
+                "plane": 26,
+                "source_z": 948,
+                "sha256": "b3c580eb37643c5d697f19f3f345e650455e8ca55688652c560d4ab0e9ae0263"
+              },
+              {
+                "plane": 27,
+                "source_z": 950,
+                "sha256": "486bf73217e8154302e90fb7f9889914b76d251af971c51a7ec9ea59e3cf81d2"
+              },
+              {
+                "plane": 28,
+                "source_z": 952,
+                "sha256": "7ec81b8abe13eca53dc7f12019ca47d12391543025011f1d46d7d34445c6c887"
+              },
+              {
+                "plane": 29,
+                "source_z": 954,
+                "sha256": "d04a17330faa95c7397dd14a1e9b556a1cbc91cca48b979f766d8a543a40ef3b"
+              },
+              {
+                "plane": 30,
+                "source_z": 956,
+                "sha256": "1a5013c3ac09cd95ffe7f32e3311f1b33999e3f100b79c1b7ce7441ecdc0ef45"
+              },
+              {
+                "plane": 31,
+                "source_z": 958,
+                "sha256": "6f4b62f91655f1818990abf3df0cc688cff8786e93e347e8ee6ad4a178a940a0"
               }
             ]
           }
