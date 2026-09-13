@@ -50,6 +50,10 @@ and changes. Arrange access to new raw files with the maintainer so they
 can verify and publish them; pushing the branch alone does not transfer
 git-annex content to GitHub.
 
+The [BBBC022 sample](docs/bbbc022.md) includes a reproducible import script
+with source-image checksums, deterministic field selection, and exact
+pixel checks.
+
 ## Publish a release
 
 Run these commands in Bash from a clean checkout of the reviewed commit,

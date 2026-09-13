@@ -43,6 +43,24 @@ Changes: selected the brightfield image of well C05, decoded its TIFF pixels,
 and repacked the complete image as little-endian uint16 without rescaling.
 The preview adjusts contrast and reduces the image to fit a 128×128 canvas.
 
+## BBBC022
+
+The U2OS MitoTracker images in `data/bbbc022-v1/` and their previews are
+shared under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/),
+as stated on the [BBBC022 dataset page](https://bbbc.broadinstitute.org/BBBC022).
+Credit: Sigrun M. Gustafsdottir and colleagues,
+[Multiplex Cytological Profiling Assay to Measure Diverse Cellular States](https://doi.org/10.1371/journal.pone.0080999),
+PLOS ONE 8(12): e80999 (2013), and the Broad Bioimage Benchmark Collection
+(Ljosa and colleagues, Nature Methods, 2012).
+
+Changes: selected channel w5, site 1, from 16 mock-control wells of plate
+20585, one well per plate row A-P. Repacked the 16 complete TIFF images as
+one headerless little-endian uint16 file without rescaling, cropping,
+filtering, or denoising. The preview applies display contrast adjustments
+and area averaging to fit a 128×128 canvas. Source file identities,
+checksums, selection details, and the access date are recorded in the
+manifest. See [the sample documentation](docs/bbbc022.md).
+
 ## Cell Painting JUMP-Scope
 
 The fluorescence image in `data/jump-scope-v1/` and its preview are shared
