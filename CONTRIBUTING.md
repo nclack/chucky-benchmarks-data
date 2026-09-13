@@ -30,14 +30,17 @@ and `sha256sum`.
    version for each release that changes the corpus. Change `format.version`
    only when the format specification changes. Keep older releases intact
    so previous benchmark results remain reproducible.
-6. Update [DATA-LICENSES.md](DATA-LICENSES.md) with the source's attribution,
-   license links and a description of your changes. Update the README's
-   file count, total size, corpus version and release links as needed.
+6. Add a brief entry to [DATASETS.md](DATASETS.md) with thumbnails, shape,
+   pixel type, size, source credit and license links. Keep detailed selection
+   and import instructions under `docs/`. Record full attribution, license
+   notices and changes in [DATA-LICENSES.md](DATA-LICENSES.md). Update the
+   README's file count, total size, corpus version and release links.
 7. Add raw files through git-annex, then stage the metadata and previews:
 
    ```sh
    git annex add data/example-v2/
-   git add manifest.json DATA-LICENSES.md README.md thumbnails/
+   git add manifest.json DATASETS.md DATA-LICENSES.md README.md \
+     docs/ scripts/ thumbnails/
    git diff --cached --stat
    git commit -m "data: update example dataset"
    ```
@@ -169,8 +172,8 @@ done
 git annex sync --only-annex --no-content origin
 ```
 
-The final sync publishes the URL records on the `git-annex` branch so other
-clones can retrieve the release contents. See
+The final sync publishes git-annex URL records so other clones can retrieve
+the release contents. See
 [registerurl](https://git-annex.branchable.com/git-annex-registerurl/) and
 [sync](https://git-annex.branchable.com/git-annex-sync/) for details.
 

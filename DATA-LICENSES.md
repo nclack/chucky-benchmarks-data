@@ -19,7 +19,7 @@ Changes in this repository:
   stacks and repacked their decoded pixels as headerless little-endian uint16
   stacks. Full Y/X planes and pixel values are preserved without rescaling.
 - PNG previews: selected example planes, adjusted brightness for display, and
-  reduced them to 128 × 128 pixels. The README describes the preview rendering.
+  reduced them to 128 × 128 pixels.
 
 When redistributing, retain creator credits, source links, license and
 disclaimer notices, and descriptions of earlier changes. Identify further
@@ -107,8 +107,9 @@ for its conditions, warranty disclaimer and limitation of liability.
 ## OpenOrganelle / COSEM
 
 The electron-microscopy samples in `data/cosem-v1/` and `data/cosem-v2/`,
-and their previews, are shared under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), as stated in
-the [COSEM public release](https://registry.opendata.aws/janelia-cosem/).
+and their previews, are shared under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), as stated in the
+[COSEM public release](https://registry.opendata.aws/janelia-cosem/).
 Credit: the CellMap Project Team at HHMI Janelia Research Campus, Melanie
 Freeman, Harald Hess, David P. Hoffman, Andrew Moore, H. Amalia Pasolli,
 Gleb Shtengel and C. Shan Xu. See the

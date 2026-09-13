@@ -45,7 +45,7 @@ selected leading axes into `plane` does not change the C-order sample sequence.
 A selection with axes `["field", "y", "x"]` contains separate 2D fields
 along `plane`; that axis is neither depth nor time. For these assets, each
 entry in `provenance.files` identifies the source image of a zero-based
-output `plane`. The BBBC022 sample has no model-training split assignments.
+output `plane`.
 
 ## Version 1
 
