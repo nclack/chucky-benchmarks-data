@@ -45,20 +45,23 @@ and `sha256sum`.
    Replace the example path with your dataset directory. Git stores the
    pointers; the raw contents still need to be uploaded during publishing.
 
-Submit the branch for review with a description of the source, selection
-and changes. Arrange access to new raw files with the maintainer so they
-can verify and publish them; pushing the branch alone does not transfer
-git-annex content to GitHub.
+Publish and verify a prerelease from the contribution branch before
+submitting it for review. Include the release link in the PR alongside the
+source, selection, and changes so reviewers can download the raw files.
+Pushing the branch alone does not transfer git-annex content to GitHub.
+Contributors without release permissions should arrange publication with
+a maintainer. After review and merge, publish the stable release.
 
 The [BBBC022 sample](docs/bbbc022.md) includes a reproducible import script
 with source-image checksums, deterministic field selection, and exact
 pixel checks.
 
-## Publish a release
+## Publish a prerelease for review
 
-Run these commands in Bash from a clean checkout of the reviewed commit,
-after it has been pushed to the repository. Each release includes every raw
-file referenced by its manifest, including unchanged datasets.
+Run these commands in Bash from a clean checkout of the contribution commit,
+after it has been pushed to the repository. The branch can be unmerged.
+Each release includes every raw file referenced by its manifest, including
+unchanged datasets.
 
 Fetch any missing content with `git annex get data/`, then run
 `git annex fsck data/`. Prepare a fresh staging directory under `~/tmp/`.
@@ -67,7 +70,7 @@ files using their release basenames, and adds the metadata:
 
 ```sh
 repo=nclack/chucky-benchmarks-data
-tag=microscopy-v2
+tag=microscopy-v2-rc1
 mkdir -p "$HOME/tmp"
 export release_dir
 release_dir=$(mktemp -d "$HOME/tmp/${tag}.XXXXXX")
@@ -103,10 +106,11 @@ for name in ("manifest.json", "FORMAT.md", "DATA-LICENSES.md"):
 PY
 ```
 
-Use the next corpus version for `tag` (version 2 is shown as an example).
-If validation fails, fix the input and repeat with a fresh staging directory
-before continuing. Generate checksums with basenames matching the
-downloaded assets:
+Use the next corpus version and a candidate suffix for `tag` (version 2,
+candidate 1 is shown). Give subsequent review releases new tags and preserve
+published assets. If validation fails, fix the input and repeat with a fresh
+staging directory before continuing. Generate checksums with basenames
+matching the downloaded assets:
 
 ```sh
 (
@@ -117,24 +121,28 @@ downloaded assets:
 ```
 
 Write release notes to `"$HOME/tmp/${tag}-notes.md"` describing the datasets,
-changes, total size, format, licenses and download instructions. Tag the
-reviewed commit and create a draft containing all staged assets:
+changes, total size, format, licenses and download instructions. State that
+the release is available for contribution review. Tag the contribution
+commit and create a draft containing all staged assets:
 
 ```sh
 git tag -a "$tag" -m "Microscopy benchmark samples ${tag#microscopy-}"
 git push origin "$tag"
 gh release create "$tag" "$release_dir"/* --repo "$repo" \
-  --verify-tag --draft --title "Microscopy benchmark samples ${tag#microscopy-}" \
+  --verify-tag --draft --prerelease --latest=false \
+  --title "Microscopy benchmark samples ${tag#microscopy-}" \
   --notes-file "$HOME/tmp/${tag}-notes.md"
 ```
 
-Inspect the draft's notes and asset list, then publish it. The
+Inspect the draft's notes, asset sizes, and checksums, then publish it as a
+prerelease. Publishing makes the assets accessible to reviewers; a draft
+requires repository write access. See the
 [GitHub CLI release documentation](https://cli.github.com/manual/gh_release_create)
-describes these options. Publish a new version to correct released data or
+for these options. Publish a new version to correct released data or
 metadata; preserve existing release assets and tags.
 
 ```sh
-gh release edit "$tag" --repo "$repo" --draft=false
+gh release edit "$tag" --repo "$repo" --draft=false --prerelease --latest=false
 gh release download "$tag" --repo "$repo" --dir "$release_dir/download-check"
 (cd "$release_dir/download-check" && sha256sum --check SHA256SUMS)
 ```
@@ -164,5 +172,21 @@ clones can retrieve the release contents. See
 [registerurl](https://git-annex.branchable.com/git-annex-registerurl/) and
 [sync](https://git-annex.branchable.com/git-annex-sync/) for details.
 
-Finally, use a fresh clone to follow the README's git-annex download
-instructions and confirm `git annex fsck data/` passes.
+Finally, use a fresh clone at the candidate tag to follow the README's
+git-annex download instructions and confirm `git annex fsck data/` passes.
+Update the README to link the review release, and include its download and
+verification results in the contribution PR.
+
+## Publish a stable release
+
+After review and merge, repeat the packaging and verification steps from the
+merged commit using the stable tag, such as `microscopy-v2`. Omit
+`--prerelease` when creating the draft, and publish with:
+
+```sh
+gh release edit "$tag" --repo "$repo" --draft=false --prerelease=false --latest
+```
+
+Register and verify the stable download URLs as above. Update the README
+to identify the new stable release. Preserve the review release and its
+assets so review comments and earlier results remain reproducible.

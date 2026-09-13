@@ -2,8 +2,8 @@
 
 Public microscopy samples for reproducible
 [chucky][] compression benchmarks.
-The working corpus (version 2, unreleased) contains seven raw files totaling
-28.85 MiB, with fluorescence, brightfield, quantitative phase and electron
+The [version 2 review corpus][microscopy-v2-rc1 release] contains seven raw
+files totaling 28.85 MiB, with fluorescence, brightfield, quantitative phase and electron
 microscopy images. It includes an 11.04 MiB BBBC022 fluorescence sample
 for lossy compression and denoising experiments.
 
@@ -14,37 +14,39 @@ from its original TIFFs using the
 
 ## Download
 
-The latest published corpus is the [microscopy-v1 release][], containing
-six raw files totaling 17.81 MiB. Download its files from the **Assets**
-section. The BBBC022 sample is part of the unreleased version 2 corpus,
-with seven raw files totaling 28.85 MiB.
+The [microscopy-v2-rc1 prerelease][microscopy-v2-rc1 release] includes the
+BBBC022 sample and contains seven raw files totaling 28.85 MiB. It is
+published for review before merge. The latest stable corpus is the
+[microscopy-v1 release][], with six raw files totaling 17.81 MiB.
+
 Browser downloads require no GitHub account, Git or git-annex. Choose the
 attached `.raw` files; the automatically generated source archives contain
 pointers instead of the raw data.
 
-To download all ten assets with the
+To download all eleven review assets with the
 [GitHub CLI][]:
 
 ```sh
-gh release download microscopy-v1 \
-  --repo nclack/chucky-benchmarks-data --dir microscopy-v1
-cd microscopy-v1
+gh release download microscopy-v2-rc1 \
+  --repo nclack/chucky-benchmarks-data --dir microscopy-v2-rc1
+cd microscopy-v2-rc1
 sha256sum --check SHA256SUMS
 ```
 
-The release includes six raw files, `manifest.json`, `FORMAT.md`,
+The review release includes seven raw files, `manifest.json`, `FORMAT.md`,
 `DATA-LICENSES.md` and `SHA256SUMS`. Keep them together for checksum
 verification. Release asset names are the raw files' basenames; if your
 benchmark reads paths from the manifest, move each raw file to its recorded
 `data/...` path after verification. Use the manifest attached to the same
-release as the data.
+release as the data. Use `microscopy-v1` in the commands above to download
+the stable corpus instead.
 
 ### Optional: download with git-annex
 
 Install Git and git-annex, then run:
 
 ```sh
-git clone --branch microscopy-v1 https://github.com/nclack/chucky-benchmarks-data.git
+git clone --branch microscopy-v2-rc1 https://github.com/nclack/chucky-benchmarks-data.git
 cd chucky-benchmarks-data
 git annex init
 git annex get data/
@@ -63,7 +65,7 @@ for GitHub; the `web` remote supplies the content.
 [manifest.json][] records each asset's shape, pixel type, SHA-256
 checksum, source and license. [FORMAT.md][] describes the headerless
 raw format. The published `microscopy-v1` release uses format version 2
-and corpus version 1. The working corpus uses corpus version 2 and retains
+and corpus version 1. The review corpus uses corpus version 2 and retains
 format version 2.
 
 Sources: OpenCell, BBBC010, BBBC022, Cell Painting JUMP-Scope, DynaCell A549, and
@@ -96,6 +98,7 @@ a dataset and publishing a new release.
 [chucky]: https://github.com/acquire-project/chucky
 [GitHub releases]: https://github.com/nclack/chucky-benchmarks-data/releases
 [microscopy-v1 release]: https://github.com/nclack/chucky-benchmarks-data/releases/tag/microscopy-v1
+[microscopy-v2-rc1 release]: https://github.com/nclack/chucky-benchmarks-data/releases/tag/microscopy-v2-rc1
 [GitHub CLI]: https://cli.github.com/manual/gh_release_download
 [manifest.json]: manifest.json
 [FORMAT.md]: FORMAT.md
