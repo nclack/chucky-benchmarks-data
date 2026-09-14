@@ -36,9 +36,16 @@ Pixel values retain the source's numeric representation. PNG thumbnails use
 separate display adjustments and are not benchmark inputs.
 
 Selections expressed as `start` and `stop` coordinates are zero-based with
-exclusive stops, in the order named by `axes`. Acquisition labels retain the
-provider's numbering where explicitly stated. Flattening selected leading
-axes into `plane` does not change the C-order sample sequence.
+exclusive stops, in the order named by `axes`. An optional `step` gives the
+positive integer stride on each axis; omitted steps are one. Output indices
+follow the selected source coordinates in increasing order. Acquisition
+labels retain the provider's numbering where explicitly stated. Flattening
+selected leading axes into `plane` does not change the C-order sample sequence.
+
+A selection with axes `["field", "y", "x"]` contains separate 2D fields
+along `plane`; that axis is neither depth nor time. For these assets, each
+entry in `provenance.files` identifies the source image of a zero-based
+output `plane`.
 
 ## Version 1
 

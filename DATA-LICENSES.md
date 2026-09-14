@@ -19,7 +19,7 @@ Changes in this repository:
   stacks and repacked their decoded pixels as headerless little-endian uint16
   stacks. Full Y/X planes and pixel values are preserved without rescaling.
 - PNG previews: selected example planes, adjusted brightness for display, and
-  reduced them to 128 × 128 pixels. The README describes the preview rendering.
+  reduced them to 128 × 128 pixels.
 
 When redistributing, retain creator credits, source links, license and
 disclaimer notices, and descriptions of earlier changes. Identify further
@@ -42,6 +42,24 @@ Broad Bioimage Benchmark Collection (Ljosa and colleagues, Nature Methods,
 Changes: selected the brightfield image of well C05, decoded its TIFF pixels,
 and repacked the complete image as little-endian uint16 without rescaling.
 The preview adjusts contrast and reduces the image to fit a 128×128 canvas.
+
+## BBBC022
+
+The U2OS MitoTracker images in `data/bbbc022-v1/` and their previews are
+shared under [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/),
+as stated on the [BBBC022 dataset page](https://bbbc.broadinstitute.org/BBBC022).
+Credit: Sigrun M. Gustafsdottir and colleagues,
+[Multiplex Cytological Profiling Assay to Measure Diverse Cellular States](https://doi.org/10.1371/journal.pone.0080999),
+PLOS ONE 8(12): e80999 (2013), and the Broad Bioimage Benchmark Collection
+(Ljosa and colleagues, Nature Methods, 2012).
+
+Changes: selected channel w5, site 1, from 16 mock-control wells of plate
+20585, one well per plate row A-P. Repacked the 16 complete TIFF images as
+one headerless little-endian uint16 file without rescaling, cropping,
+filtering, or denoising. The preview applies display contrast adjustments
+and area averaging to fit a 128×128 canvas. Source file identities,
+checksums, selection details, and the access date are recorded in the
+manifest. See [the sample documentation](docs/bbbc022.md).
 
 ## Cell Painting JUMP-Scope
 
@@ -88,20 +106,26 @@ for its conditions, warranty disclaimer and limitation of liability.
 
 ## OpenOrganelle / COSEM
 
-The electron-microscopy image in `data/cosem-v1/` and its preview are shared
-under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), as stated in
-the [COSEM public release](https://registry.opendata.aws/janelia-cosem/).
+The electron-microscopy samples in `data/cosem-v1/` and `data/cosem-v2/`,
+and their previews, are shared under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), as stated in the
+[COSEM public release](https://registry.opendata.aws/janelia-cosem/).
 Credit: the CellMap Project Team at HHMI Janelia Research Campus, Melanie
 Freeman, Harald Hess, David P. Hoffman, Andrew Moore, H. Amalia Pasolli,
 Gleb Shtengel and C. Shan Xu. See the
 [interphase COS-7 dataset record](https://figshare.com/articles/dataset/24898086)
 for sample contributions and related publications.
-The `jrc_cos7-1a` reconstruction 1 array was accessed on 2026-09-11.
+The `jrc_cos7-1a` reconstruction 1 array was accessed on 2026-09-11 for
+version 1 and 2026-09-13 for version 2.
 
-Changes: selected a 512×512 region of one full-resolution plane from the
-provider's reconstructed uint8 volume and repacked its decoded pixels
-without rescaling. The exact coordinates are in the manifest. The preview
-adjusts contrast and reduces the crop to 128×128.
+Changes: version 1 selected a 512×512 region of one full-resolution plane
+from the provider's reconstructed uint8 volume. Version 2 selects 32
+1024×1024 planes from the same volume with a depth stride of two. Both
+imports preserve the published values without rescaling, filtering,
+averaging or denoising. The exact coordinates and source checksums are
+recorded in the manifest. Previews adjust contrast and reduce a selected
+plane to 128×128. See [the COSEM documentation](docs/cosem.md) for the
+selection and known source processing.
 
 When sharing, preserve attribution, source and license links, supplied
 notices and descriptions of changes. See the
